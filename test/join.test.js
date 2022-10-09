@@ -70,3 +70,20 @@ test("concat", ()=>{
     expect(other).toEqual([1, 2, 3, [4]]);
 
 });
+
+
+test("xor", () => {
+    expect(_.xor([1, 2, 3], [2, 3, 4], [2, 4, 5])).toEqual([1, 5]);
+});
+
+test("xorWith", () => {
+    const objects = [{'x': 1, 'y': 2}, {'x': 2, 'y': 1}];
+    const others = [{'x': 1, 'y': 1}, {'x': 1, 'y': 2}];
+    const expected = [{'x': 2, 'y': 1}, {'x': 1, 'y': 1}];
+    expect(_.xorWith(objects, others, _.isEqual)).toEqual(expected);
+});
+
+test("xorBy", () => {
+    expect(_.xorBy([1.1, 2.1, 3.1], [2.2, 3.2, 4.2], [2.3, 4.3, 5.3], Math.floor))
+        .toStrictEqual([1.1, 5.3]);
+});
