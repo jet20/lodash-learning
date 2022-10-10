@@ -109,7 +109,7 @@ describe('Same Value(Object.is)', () => {
     });
 
     test('Object.is({x: 3},{x: 3})  : false', () => {
-        expect(Object.is({x: 3},{x: 3})).toBe(false);
+        expect(Object.is({x: 3}, {x: 3})).toBe(false);
     });
 
     test('Object.is(NaN, NaN) : true', () => {
@@ -141,7 +141,7 @@ describe('SameValueZero(_.eq)', () => {
     });
 
     test('_.eq({x: 3},{x: 3})  : false', () => {
-        expect(_.eq({x: 3},{x: 3})).toBe(false);
+        expect(_.eq({x: 3}, {x: 3})).toBe(false);
     });
 
     test('_.eq(NaN, NaN) : true', () => {
@@ -159,5 +159,35 @@ describe('SameValueZero(_.eq)', () => {
     test('_.eq(-0, +0) : false', () => {
         expect(_.eq(-0, +0)).toBe(true);
     });
+
+});
+
+
+describe('对象深度比较(_.isEqual)', () => {
+
+    test('isEqual', () => {
+        const object = {'a': 1};
+        const other = {'a': 1};
+
+        expect(_.isEqual(object, other)).toBe(true);
+    });
+
+    test('isEqualWith', () => {
+        function isGreeting(value) {
+            return /^h(?:i|ello)$/.test(value);
+        }
+
+        function customizer(objValue, othValue) {
+            if (isGreeting(objValue) && isGreeting(othValue)) {
+                return true;
+            }
+        }
+
+        const array = ['hello', 'goodbye'];
+        const other = ['hi', 'goodbye'];
+
+        expect(_.isEqualWith(array, other, customizer)).toBe(true);
+    });
+
 
 });
